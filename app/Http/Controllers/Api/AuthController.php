@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -49,12 +51,13 @@ class AuthController extends Controller
 
     public function login(LoginRequest $request): JsonResponse
     {
-        if (Auth::attempt($request->validated())) {
-            $request->session()->regenerate();
+
+        if (Auth::attempt($request->only('login', 'password'))) {
             $user=Cache::rememberForever('user-'.auth()->id(),function() {
                 return auth()->user();
             });
-            $token = $user->createToken('auth_token')->plainTextToken;
+//            dd($check_user);
+            $token = $user->createToken('token-name', [$request['login'], 'auth'])->plainTextToken;
 
             return response()->json([
                 'user_name' => $user->name,
@@ -66,4 +69,16 @@ class AuthController extends Controller
             'message' => 'Invalid credentials'
         ], 401);
     }
+//if (Auth::attempt($credentials))  {
+////            $request->session()->regenerate();
+//return $this->sendResponse([
+//"name"=>auth()->user()->name,
+//"phone"=>auth()->user()->phone,
+//"email"=>auth()->user()->email,
+//"role"=>auth()->user()->getRoleNames(),
+//"token"=>auth()->user()->createToken('token-name', [$request['phone'], 'auth'])->plainTextToken,
+//],
+//'Success Auth'
+//);
+//}
 }
