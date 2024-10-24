@@ -15,6 +15,9 @@
     "paths": {
         "/api/v1/login": {
             "post": {
+                "tags": [
+                    "Auth"
+                ],
                 "summary": "Authenticate user and generate token",
                 "operationId": "b9b760991d94b179960cd7ddc93eedf2",
                 "parameters": [
@@ -46,6 +49,56 @@
                     }
                 }
             }
+        },
+        "/api/v1/profile": {
+            "get": {
+                "tags": [
+                    "Profile"
+                ],
+                "summary": "Get user profile",
+                "description": "Retrieve the user profile by authentication token",
+                "operationId": "getUserProfile",
+                "responses": {
+                    "200": {
+                        "description": "Successful operation"
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Auth",
+            "description": "Auth"
+        },
+        {
+            "name": "Profile",
+            "description": "Profile"
+        }
+    ],
+    "components": {
+        "securitySchemes": {
+            "api_key": {
+                "type": "apiKey",
+                "name": "Authorization",
+                "in": "header"
+            }
+        }
+    },
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Global\AnnotationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/profile', [AuthController::class, 'profile']);
+    Route::apiResource('annotations', AnnotationController::class)->except('show');
+});

@@ -24,8 +24,18 @@ class UserSeeder extends Seeder
             'login'=>$data['login'],
         ],$data);
         $permission = Permission::create(['name' => 'Super Admin']);
+        $this->addUserPermissions();
         $role = Role::create(['name' => 'Super Admin']);
         $role->givePermissionTo($permission);
         $admin->assignRole([$role->id]);
+    }
+
+    /**
+     * @return void
+     */
+    public function addUserPermissions(): void
+    {
+        Permission::updateOrCreate(['name' => 'create annotation']);
+        Permission::updateOrCreate(['name' => 'edit annotation']);
     }
 }
