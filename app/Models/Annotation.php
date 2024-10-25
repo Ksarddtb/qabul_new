@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Annotation extends Model
 {
@@ -11,4 +12,12 @@ class Annotation extends Model
       'user_id',
       'text'
     ];
+
+    /**
+    * @return BelongsTo
+    */
+    function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

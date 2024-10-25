@@ -11,7 +11,7 @@ class AnnotationStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return auth()->user()->hasPermissionTo('create annotation');
+        return auth()->user()->can('create annotation');
     }
 
     /**
