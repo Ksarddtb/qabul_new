@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Resources\Api\Global;
+namespace App\Http\Resources\User;
 
-use App\Http\Resources\User\ProfileShortResource;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class AnnotationResource extends JsonResource
+class ProfileShortResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -15,11 +14,9 @@ class AnnotationResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return [
+        return[
             'id'=>$this->id,
-            'user'=>new ProfileShortResource($this->user),
-            'text'=>$this->text,
-            'created_at'=>$this->created_at
+            'name'=>$this->name,
         ];
     }
 }
