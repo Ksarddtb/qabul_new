@@ -23,7 +23,7 @@ class UserObserver
      */
     public function updated(User $user): void
     {
-        Cache::delete('user'.$user->i);
+        Cache::delete('user'.$user->id);
         Cache::rememberForever('user'.$user->id, function () use ($user) {
             return $user;
         });
