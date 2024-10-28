@@ -23,5 +23,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('annotations', AnnotationController::class)->except('show');
     Route::prefix('global')->group(function () {
         Route::GET('departments',[GlobalController::class, 'departments']);
+        Route::GET('speciality',[GlobalController::class, 'speciality']);
     });
 });
