@@ -18,4 +18,13 @@ enum SexEnums:string
             self::NOT,
         ];
     }
+
+    public function translate()
+    {
+        return match ($this) {
+            self::MEN => 'Erkak',
+            self::WOMAN => 'Ayol',
+            self::NOT => 'Belgilanlangan',
+        };
+    }
 }

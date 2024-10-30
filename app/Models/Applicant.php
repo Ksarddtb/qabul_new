@@ -45,9 +45,41 @@ class Applicant extends Model
         'status'=>'boolean',
         'status_test'=>'boolean'
     ];
-    public function edulang(): BelongsTo
+
+    /**
+     * @return BelongsTo
+     */
+    public function eduLang(): BelongsTo
     {
-        return $this->belongsTo(eduLang::class);
+        return $this->belongsTo(eduLang::class,'edu_lang_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function eduForm(): BelongsTo
+    {
+        return $this->belongsTo(eduForm::class,'edu_form_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function speciality(): BelongsTo
+    {
+        return $this->belongsTo(Speciality::class);
+    }
+    public function type(): BelongsTo
+    {
+        return $this->belongsTo(ApplicationType::class,'application_type_id');
+    }
+    public function payment(): BelongsTo
+    {
+        return $this->belongsTo(PaymentType::class,'payment_type_id');
+    }
+    public function referral(): BelongsTo
+    {
+        return $this->belongsTo(Referrals::class,'referrals_id');
     }
 
 }
