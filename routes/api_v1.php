@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApplicantController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\Global\AnnotationController;
 use App\Http\Controllers\Api\Global\GlobalController;
@@ -30,7 +31,14 @@ Route::prefix('global')->group(function () {
     Route::GET('payment_types',[GlobalController::class, 'paymentTypes']);
     Route::GET('referrals',[GlobalController::class, 'referrals']);
 });
-
+Route::prefix('applicant')->group(function () {
+    Route::get('/', [ApplicantController::class, 'index']);
+    Route::POST('/phone_validation', [ApplicantController::class, 'phoneValidation']);
+    Route::GET('/{applicant}', [ApplicantController::class, 'show']);
+    Route::POST('/', [ApplicantController::class, 'store']);
+    Route::PUT('/{applicant}', [ApplicantController::class, 'update']);
+    Route::DELETE('/{applicant}', [ApplicantController::class, 'destroy']);
+});
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/profile', [AuthController::class, 'profile']);

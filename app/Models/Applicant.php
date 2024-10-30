@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\EduTypesEnums;
+use App\Enums\SexEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Applicant extends Model
 {
@@ -15,6 +18,7 @@ class Applicant extends Model
         'p_series',
         'p_number',
         'p_pinfl',
+        'full_name',
         'first_name',
         'surname',
         'family_name',
@@ -35,4 +39,15 @@ class Applicant extends Model
         'qungiroq',
         'contract_period',
     ];
+    protected $casts=[
+        'edu_type'=>EduTypesEnums::class,
+        'sex'=>SexEnums::class,
+        'status'=>'boolean',
+        'status_test'=>'boolean'
+    ];
+    public function edulang(): BelongsTo
+    {
+        return $this->belongsTo(eduLang::class);
+    }
+
 }
