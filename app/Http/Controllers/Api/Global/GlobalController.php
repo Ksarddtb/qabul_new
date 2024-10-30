@@ -11,6 +11,8 @@ use App\Models\ApplicationType;
 use App\Models\Department;
 use App\Models\eduForm;
 use App\Models\eduLang;
+use App\Models\PaymentType;
+use App\Models\Referrals;
 use App\Models\Speciality;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -85,6 +87,19 @@ class GlobalController extends Controller
 
         return response()->json(Cache::rememberForever('app_types', function () {
             return ApplicationType::all();
+        }));
+    }
+
+    public function paymentTypes()
+    {
+        return response()->json(Cache::rememberForever('payment_types', function () {
+            return PaymentType::all();
+        }));
+    }
+    public function referrals()
+    {
+        return response()->json(Cache::rememberForever('referral_codes', function () {
+            return Referrals::all();
         }));
     }
 }

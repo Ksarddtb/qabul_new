@@ -27,6 +27,8 @@ Route::prefix('global')->group(function () {
     Route::GET('edu_langs',[GlobalController::class, 'eduLangs']);
     Route::GET('edu_forms',[GlobalController::class, 'eduForms']);
     Route::GET('app_types',[GlobalController::class, 'appTypes']);
+    Route::GET('payment_types',[GlobalController::class, 'paymentTypes']);
+    Route::GET('referrals',[GlobalController::class, 'referrals']);
 });
 
 
