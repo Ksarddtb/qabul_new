@@ -27,9 +27,10 @@ return new class extends Migration
             $table->string('p_seria',2)->nullable();
             $table->string('p_number',8)->nullable();
             $table->string('p_pinfl',14)->nullable();
-            $table->string('name',50);
-            $table->string('s_name',100);
-            $table->string('f_name',100)->nullable();
+            $table->string('full_name',150);
+            $table->string('first_name',100);
+            $table->string('surname',100);
+            $table->string('family_name',100)->nullable();
             $table->enum('sex',['men','woman','not selected'])->default('not selected');
             $table->unsignedTinyInteger('age')->nullable();
             $table->foreignIdFor(eduLang::class)->nullable()
