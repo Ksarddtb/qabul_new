@@ -23,7 +23,10 @@ Route::prefix('global')->group(function () {
     Route::GET('departments',[GlobalController::class, 'departments']);
     Route::GET('speciality',[GlobalController::class, 'speciality']);
     Route::GET('sex',[GlobalController::class, 'sex']);
-    Route::GET('edu_types',[GlobalController::class, 'edu_types']);
+    Route::GET('edu_types',[GlobalController::class, 'eduTypes']);
+    Route::GET('edu_langs',[GlobalController::class, 'eduLangs']);
+    Route::GET('edu_forms',[GlobalController::class, 'eduForms']);
+    Route::GET('app_types',[GlobalController::class, 'appTypes']);
 });
 
 
