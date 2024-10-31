@@ -32,15 +32,20 @@ Route::prefix('global')->group(function () {
     Route::GET('referrals',[GlobalController::class, 'referrals']);
 });
 Route::prefix('applicant')->group(function () {
-    Route::get('/', [ApplicantController::class, 'index']);
     Route::POST('/phone_validation', [ApplicantController::class, 'phoneValidation']);
-    Route::GET('/{applicant}', [ApplicantController::class, 'show']);
     Route::POST('/', [ApplicantController::class, 'store']);
-    Route::PUT('/{applicant}', [ApplicantController::class, 'update']);
-    Route::DELETE('/{applicant}', [ApplicantController::class, 'destroy']);
+
 });
 
-Route::group(['middleware' => 'auth:sanctum'], function () {
+Route::group(['middleware' => 'auth:sanctum','prefix' => 'admin'], function () {
+    Route::prefix('applicant')->group(function () {
+        Route::get('/', [ApplicantController::class, 'index']);
+        Route::POST('/phone_validation', [ApplicantController::class, 'phoneValidation']);
+        Route::GET('/{applicant}', [ApplicantController::class, 'show']);
+        Route::POST('/', [ApplicantController::class, 'store2']);
+        Route::PUT('/{applicant}', [ApplicantController::class, 'update']);
+        Route::DELETE('/{applicant}', [ApplicantController::class, 'destroy']);
+    });
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::apiResource('annotations', AnnotationController::class)->except('show');
 

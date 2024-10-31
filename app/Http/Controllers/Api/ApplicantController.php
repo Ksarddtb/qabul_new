@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\ApplicantAuthRequest;
 use App\Http\Requests\Api\ApplicantRequest;
 use App\Http\Resources\Api\ApplicantResource;
 use App\Models\Applicant;
@@ -17,7 +18,7 @@ class ApplicantController extends Controller
      */
     public function index()
     {
-        return ApplicantResource::collection(Applicant::all());
+        return ApplicantResource::collection(Applicant::paginate(30));
     }
 
     public function phoneValidation(Request $request)
@@ -56,21 +57,32 @@ class ApplicantController extends Controller
         ]);
 
     }
+    public function store2(ApplicantAuthRequest $request)
+    {
+//        dd($request->afterValidated());
+        DB::beginTransaction();
+        try {
+            Applicant::create($request->afterValidated());
+            DB::commit();
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => true,
+                'message' => $e->getMessage()
+            ]);
+        }
+        return response()->json([
+            'success' => true,
+            'message' => 'Applicant created successfully'
+        ]);
+
+    }
 
     /**
      * Display the specified resource.
      */
     public function show(Applicant $applicant)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Applicant $applicant)
-    {
-        //
+        return new ApplicantResource($applicant);
     }
 
     /**
@@ -86,6 +98,10 @@ class ApplicantController extends Controller
      */
     public function destroy(Applicant $applicant)
     {
-        //
+        $applicant->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Applicant deleted successfully'
+        ]);
     }
 }
