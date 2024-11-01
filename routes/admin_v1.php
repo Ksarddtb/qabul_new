@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\Api\Admin\EducationFormController;
+use App\Http\Controllers\Api\Admin\EducationLangController;
 use App\Http\Controllers\Api\Admin\PermissionController;
 use App\Http\Controllers\Api\Admin\RoleController;
+use App\Http\Controllers\Api\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +19,9 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware' => 'auth:sanctum,permission:SuperAdmin'], function () {
         Route::apiResource('roles',RoleController::class);
+        Route::apiResource('users',UserController::class);
+        Route::apiResource('edu_forms', EducationFormController::class);
+        Route::apiResource('edu_langs',EducationLangController::class);
         Route::POST('role/sync/{role}',[RoleController::class,'syncPermissions']);
         Route::GET('permission',[PermissionController::class,'index']);
 });
