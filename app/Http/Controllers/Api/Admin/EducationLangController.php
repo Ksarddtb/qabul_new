@@ -39,19 +39,19 @@ class EducationLangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(eduLang $eduLang)
+    public function show(eduLang $edulang)
     {
-        return eduLangResource::make($eduLang);
+        return eduLangResource::make($edulang);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(EduLangRequest $request, eduLang $eduLang)
+    public function update(EduLangRequest $request, eduLang $edulang)
     {
         DB::beginTransaction();
         try {
-            $eduLang->update($request->validated());
+            $edulang->update($request->validated());
             DB::commit();
             return response()->json(['message' => 'User updated successfully'],Response::HTTP_OK);
         }catch (\Exception $e) {
@@ -63,11 +63,12 @@ class EducationLangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(eduLang $eduLang)
+    public function destroy(eduLang $edulang)
     {
         DB::beginTransaction();
         try {
-            $eduLang->delete();
+            $edulang->delete();
+            DB::commit();
             return response()->json(['message' => 'User deleted successfully'],Response::HTTP_OK);
         }catch (\Exception $e) {
             DB::rollBack();
