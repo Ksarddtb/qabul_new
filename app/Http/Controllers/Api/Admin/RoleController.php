@@ -39,6 +39,16 @@ class RoleController extends Controller
         return new RoleResource($role);
     }
 
+    public function syncPermissions(Role $role, Request $request)
+    {
+        $request->validate([
+           'permissions' => 'required|array',
+           'permissions.*' => 'exists:permissions,name',
+        ]);
+//        dd($request->permissions);
+        $role->syncPermissions($request->permissions);
+        return response()->json(['message' => 'Permissions updated successfully.']);
+    }
     /**
      * Update the specified resource in storage.
      */

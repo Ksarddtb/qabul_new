@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 */
 Route::group(['middleware' => 'auth:sanctum,permission:SuperAdmin'], function () {
         Route::apiResource('roles',RoleController::class);
+        Route::POST('role/sync/{role}',[RoleController::class,'syncPermissions']);
         Route::GET('permission',[PermissionController::class,'index']);
 });
 
