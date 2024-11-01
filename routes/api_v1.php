@@ -37,7 +37,7 @@ Route::prefix('applicant')->group(function () {
 
 });
 
-Route::group(['middleware' => 'auth:sanctum','prefix' => 'admin'], function () {
+Route::group(['middleware' => 'auth:sanctum','prefix' => 'panel'], function () {
     Route::prefix('applicant')->group(function () {
         Route::get('/', [ApplicantController::class, 'index']);
         Route::POST('/phone_validation', [ApplicantController::class, 'phoneValidation']);
@@ -48,5 +48,4 @@ Route::group(['middleware' => 'auth:sanctum','prefix' => 'admin'], function () {
     });
     Route::get('/profile', [AuthController::class, 'profile']);
     Route::apiResource('annotations', AnnotationController::class)->except('show');
-
 });
