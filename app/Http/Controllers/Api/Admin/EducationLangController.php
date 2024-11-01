@@ -28,6 +28,7 @@ class EducationLangController extends Controller
         DB::beginTransaction();
         try {
             eduLang::create($request->validated());
+            DB::commit();
             return response()->json(['message' => 'User created successfully'],Response::HTTP_CREATED);
         }catch (\Exception $e) {
             DB::rollBack();
@@ -51,6 +52,7 @@ class EducationLangController extends Controller
         DB::beginTransaction();
         try {
             $eduLang->update($request->validated());
+            DB::commit();
             return response()->json(['message' => 'User updated successfully'],Response::HTTP_OK);
         }catch (\Exception $e) {
             DB::rollBack();

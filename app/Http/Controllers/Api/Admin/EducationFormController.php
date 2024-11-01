@@ -31,7 +31,8 @@ class EducationFormController extends Controller
         DB::beginTransaction();
         try {
             eduForm::create($request->validated());
-            return response()->json(['message' => 'User created successfully'],Response::HTTP_CREATED);
+            DB::commit();
+            return response()->json(['message' => 'Education Form created successfully'],Response::HTTP_CREATED);
         }catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => $e->getMessage()],Response::HTTP_BAD_REQUEST);
@@ -42,19 +43,20 @@ class EducationFormController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(eduForm $eduForm)
+    public function show(eduForm $eduform)
     {
-        return new EduFormResource($eduForm);
+        return new EduFormResource($eduform);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(EduFormRequest $request, eduForm $eduForm)
+    public function update(EduFormRequest $request, eduForm $eduform)
     {
         DB::beginTransaction();
         try {
-            $eduForm->update($request->validated());
+            $eduform->update($request->validated());
+            DB::commit();
             return response()->json(['message' => 'User updated successfully'],Response::HTTP_OK);
         }catch (\Exception $e) {
             DB::rollBack();
@@ -65,11 +67,12 @@ class EducationFormController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(eduForm $eduForm)
+    public function destroy(eduForm $eduform)
     {
         DB::beginTransaction();
         try {
-            $eduForm->delete();
+            $eduform->delete();
+            DB::commit();
             return response()->json(['message' => 'User deleted successfully'],Response::HTTP_OK);
         }catch (\Exception $e) {
             DB::rollBack();

@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['middleware' => 'auth:sanctum,permission:SuperAdmin'], function () {
         Route::apiResource('roles',RoleController::class);
         Route::apiResource('users',UserController::class);
-        Route::apiResource('edu_forms', EducationFormController::class);
-        Route::apiResource('edu_langs',EducationLangController::class);
+        Route::apiResource('eduforms', EducationFormController::class);
+        Route::apiResource('edulangs',EducationLangController::class);
         Route::POST('role/sync/{role}',[RoleController::class,'syncPermissions']);
         Route::GET('permission',[PermissionController::class,'index']);
 });
